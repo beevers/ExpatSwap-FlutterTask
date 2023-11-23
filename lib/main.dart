@@ -1,17 +1,19 @@
-import 'package:expatswap_fluttertask/expatswap_app.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:expatswap_fluttertask/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final deviceWidth = MediaQuery.of(context).size.width;
     final deviceHeight = MediaQuery.of(context).size.height;
     return ScreenUtilInit(
@@ -22,7 +24,10 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(useMaterial3: true),
-          home: const ExpatSwapApp(),
+          home: AnimatedSplashScreen(
+              duration: 3000,
+              splash: const SplashScreen(),
+              nextScreen: const Material()),
         );
       }),
     );
