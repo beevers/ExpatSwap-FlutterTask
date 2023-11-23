@@ -1,6 +1,5 @@
 import 'package:expatswap_fluttertask/view/theme/app_color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -15,9 +14,10 @@ class AppFormField extends ConsumerStatefulWidget {
   final String? Function(String?)? validator;
   final bool hasBorder;
   final EdgeInsets? padding;
-  final List<TextInputFormatter>? formatter;
+  final bool? readOnly;
 
   AppFormField({
+    this.readOnly,
     super.key,
     this.onTap,
     this.hintText,
@@ -29,7 +29,6 @@ class AppFormField extends ConsumerStatefulWidget {
     this.validator,
     this.hasBorder = true,
     this.padding,
-    this.formatter,
   });
   final obscureTextProvider = StateProvider((ref) => true);
 
@@ -41,9 +40,9 @@ class _AppFormFieldState extends ConsumerState<AppFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      readOnly: widget.readOnly != null ? true : false,
       onTap: widget.onTap,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      inputFormatters: widget.formatter,
       cursorColor: Colors.black,
       validator: widget.validator,
       controller: widget.controller,

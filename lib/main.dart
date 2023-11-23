@@ -1,4 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:expatswap_fluttertask/data/dependency_injection/injection_container.dart';
 import 'package:expatswap_fluttertask/view/presentation/auth/app_login_screen.dart';
 import 'package:expatswap_fluttertask/view/presentation/onboarding/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 void main() {
+  injectDependency();
   runApp(const ProviderScope(child: MyApp()));
 }
 

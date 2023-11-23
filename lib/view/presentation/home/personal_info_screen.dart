@@ -1,3 +1,4 @@
+import 'package:expatswap_fluttertask/data/dependency_injection/injection_container.dart';
 import 'package:expatswap_fluttertask/data/utils/space_utils.dart';
 import 'package:expatswap_fluttertask/view/presentation/home/view_info_screen.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:get/get.dart';
 
 import '../../../data/controllers/form_controller/text_form_cont.dart';
 import '../../../data/helper/validation_helper.dart';
+import '../../../view_model/date_picker_vm.dart';
 import '../../theme/text_style.dart';
 import '../../widget/button_widget/app_button.dart';
 import '../../widget/form_widget/app_formfield.dart';
@@ -68,24 +70,13 @@ class _PersonalInfoScreenState extends ConsumerState<PersonalInfoScreen> {
                   ),
                   SpaceUtil.h(16),
                   AppFormField(
+                    readOnly: true,
                     hintText: 'Date Of Birth',
                     validator: (value) =>
                         ValidationHelper.isValidInput(value.toString()),
                     controller: dobController,
                     onTap: () async {
-                      DateTime? date = (await showDatePicker(
-                        context: context,
-                        initialDate:
-                            DateTime.now().subtract(const Duration(days: 5136)),
-                        firstDate: DateTime.now()
-                            .subtract(const Duration(days: 29280)),
-                        lastDate:
-                            DateTime.now().subtract(const Duration(days: 3979)),
-                      ));
-                      if (date != null) {
-                        dobController.text =
-                            "${date.year}-${date.month}-${date.day}";
-                      }
+                      locator<DatePickerViewModel>().pickDate(context);
                     },
                   ),
                   SpaceUtil.h(16),

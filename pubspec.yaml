@@ -44,6 +44,7 @@ dependencies:
   #dependency for handling state management
   flutter_riverpod: ^2.4.8
   fluttertoast: ^8.2.4
+  get_it: ^7.6.4
 
 dev_dependencies:
   flutter_test:
