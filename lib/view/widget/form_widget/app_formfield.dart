@@ -1,76 +1,89 @@
 import 'package:expatswap_fluttertask/view/theme/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AppFormField extends ConsumerWidget {
-  final bool? readOnly;
-  final Function()? suffixAction;
-  final String? Function(String?)? validator;
-  final TextEditingController controller;
+class AppFormField extends ConsumerStatefulWidget {
+  final String? hintText;
+  final Widget? suffixIcon;
   final Function()? onTap;
-  final IconData? suffixIcon;
-  final bool isIcon;
-  final bool isObscure;
-  final String? iconImage;
-  final String title;
-  final IconData? prefixIcon;
-  const AppFormField({
-    this.suffixAction,
-    this.readOnly,
-    this.onTap,
-    required this.isObscure,
-    required this.validator,
-    required this.controller,
+  final int? maxLines;
+  final int? minLines;
+  final TextInputType? keyboardType;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
+  final bool hasBorder;
+  final EdgeInsets? padding;
+  final List<TextInputFormatter>? formatter;
+
+  AppFormField({
     super.key,
-    required this.isIcon,
-    this.prefixIcon,
-    this.iconImage,
+    this.onTap,
+    this.hintText,
     this.suffixIcon,
-    required this.title,
+    this.maxLines = 1,
+    this.minLines = 1,
+    this.keyboardType,
+    this.controller,
+    this.validator,
+    this.hasBorder = true,
+    this.padding,
+    this.formatter,
   });
+  final obscureTextProvider = StateProvider((ref) => true);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Padding(
-      padding: EdgeInsets.only(left: 20.w, right: 20.w),
-      child: SizedBox(
-        width: double.infinity,
-        height: 56.h,
-        child: TextFormField(
-          readOnly: readOnly ?? false,
-          onTap: onTap,
-          obscureText: isObscure,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          validator: validator,
-          controller: controller,
-          cursorColor: green,
-          decoration: InputDecoration(
-              //In this case a notify is displaying the error message.
-              errorStyle: const TextStyle(fontSize: 0),
-              suffixIcon: IconButton(
-                onPressed: suffixAction,
-                icon: Icon(suffixIcon),
-                color: Colors.black,
-              ),
-              // hintStyle: RecipeText.small(),
-              hintText: title,
-              filled: true,
-              fillColor: Colors.white,
-              errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(40.r),
-                  borderSide: BorderSide(width: 1.5, color: red)),
-              focusedErrorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(40.r),
-                  borderSide: BorderSide(width: 1.5, color: red)),
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(40.r),
-                  borderSide: BorderSide(
-                      width: 1.5, color: readOnly == null ? green : grey)),
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: grey),
-                  borderRadius: BorderRadius.circular(40.r))),
+  ConsumerState<ConsumerStatefulWidget> createState() => _AppFormFieldState();
+}
+
+class _AppFormFieldState extends ConsumerState<AppFormField> {
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      onTap: widget.onTap,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      inputFormatters: widget.formatter,
+      cursorColor: Colors.black,
+      validator: widget.validator,
+      controller: widget.controller,
+      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+      keyboardType: widget.keyboardType,
+      maxLines: widget.maxLines,
+      minLines: widget.minLines,
+      decoration: InputDecoration(
+        hintText: widget.hintText,
+        hintStyle: const TextStyle(
+          fontSize: 14,
+          color: Color(0xff9C9C9C),
+          fontWeight: FontWeight.w400,
         ),
+        border: OutlineInputBorder(
+          borderSide: widget.hasBorder
+              ? BorderSide(color: grey, width: 1.2.w)
+              : BorderSide.none,
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: widget.hasBorder
+              ? BorderSide(color: grey, width: 1.2.w)
+              : BorderSide.none,
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: red, width: 2.w),
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: widget.hasBorder
+              ? BorderSide(color: green, width: 2.w)
+              : BorderSide.none,
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        fillColor: Theme.of(context).scaffoldBackgroundColor,
+        filled: true,
+        contentPadding: widget.padding ??
+            EdgeInsets.symmetric(horizontal: 16.w, vertical: 18.h),
       ),
     );
   }

@@ -6,7 +6,6 @@ import '../../theme/text_style.dart';
 class AppButton extends ConsumerWidget {
   final String? imageTitle;
   final bool isLoading;
-  final bool isLarge;
   final String? title;
   final Function()? function;
   final Color color;
@@ -15,7 +14,6 @@ class AppButton extends ConsumerWidget {
       this.title,
       this.imageTitle,
       required this.function,
-      required this.isLarge,
       this.color = const Color(0xff1FCC79),
       super.key});
   @override
@@ -23,7 +21,7 @@ class AppButton extends ConsumerWidget {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
             backgroundColor: color,
-            minimumSize: isLarge ? Size(327.w, 56.h) : Size(150.w, 56.h),
+            minimumSize: Size(310.w, 56.h),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(90.r))),
         onPressed: function,

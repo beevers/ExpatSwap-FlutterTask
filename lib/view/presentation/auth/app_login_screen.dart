@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 
 import '../../../data/utils/space_utils.dart';
 import '../../theme/app_color.dart';
 import '../../theme/text_style.dart';
 import '../../widget/button_widget/app_button.dart';
+import '../home/personal_info_screen.dart';
 
 class AppLoginScreen extends ConsumerStatefulWidget {
   const AppLoginScreen({super.key});
@@ -40,16 +42,18 @@ class _AppLoginScreenState extends ConsumerState<AppLoginScreen> {
                   ),
                   SpaceUtil.h(8),
                   Text(
-                    "Please Sign using your google account here",
+                    "Please Sign In using your google account here",
                     style: RecipeText.small(),
                   ),
                   SpaceUtil.h(128),
                   AppButton(
-                      imageTitle: "assets/images/google.png",
-                      color: red,
-                      isLoading: false,
-                      function: () {},
-                      isLarge: true),
+                    imageTitle: "assets/images/google.png",
+                    color: red,
+                    isLoading: false,
+                    function: () {
+                      Get.to(() => const PersonalInfoScreen());
+                    },
+                  ),
                 ],
               ),
             ),
