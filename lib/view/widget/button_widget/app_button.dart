@@ -36,7 +36,7 @@ class AppButton extends ConsumerWidget {
             : imageTitle == null
                 ? Text(
                     title.toString(),
-                    style: RecipeText.small(color: Colors.white),
+                    style: AppText.small(color: Colors.white),
                   )
                 : Image.asset(
                     imageTitle.toString(),

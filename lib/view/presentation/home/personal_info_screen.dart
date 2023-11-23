@@ -34,7 +34,7 @@ class _PersonalInfoScreenState extends ConsumerState<PersonalInfoScreen> {
               children: [
                 Text(
                   "Please fill in the form accordingly here",
-                  style: RecipeText.small(),
+                  style: AppText.small(),
                 ),
                 SpaceUtil.h(32),
                 AppFormField(

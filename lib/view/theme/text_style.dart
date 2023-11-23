@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class RecipeText {
+class AppText {
   static small({color = const Color(0xffa0a5c1)}) {
     return TextStyle(
       fontFamily: "Inter",
