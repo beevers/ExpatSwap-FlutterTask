@@ -1,16 +1,15 @@
-import 'package:expatswap_fluttertask/data/dependency_injection/injection_container.dart';
-import 'package:expatswap_fluttertask/data/utils/space_utils.dart';
-import 'package:expatswap_fluttertask/view/presentation/home/view_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-
 import '../../../data/controllers/form_controller/text_form_cont.dart';
+import '../../../data/dependency_injection/injection_container.dart';
 import '../../../data/helper/validation_helper.dart';
+import '../../../data/utils/space_utils.dart';
 import '../../../view_model/date_picker_vm.dart';
 import '../../theme/text_style.dart';
 import '../../widget/button_widget/app_button.dart';
 import '../../widget/form_widget/app_formfield.dart';
+import 'view_info_screen.dart';
 
 class PersonalInfoScreen extends ConsumerStatefulWidget {
   const PersonalInfoScreen({super.key});
