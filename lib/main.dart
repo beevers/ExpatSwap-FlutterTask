@@ -1,6 +1,8 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:expatswap_fluttertask/data/dependency_injection/injection_container.dart';
+import 'package:expatswap_fluttertask/data/global_var/global_variable.dart';
 import 'package:expatswap_fluttertask/view/presentation/auth/app_login_screen.dart';
+import 'package:expatswap_fluttertask/view/presentation/home/personal_info_screen.dart';
 import 'package:expatswap_fluttertask/view/presentation/onboarding/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +39,9 @@ class MyApp extends ConsumerWidget {
           home: AnimatedSplashScreen(
               duration: 2000,
               splash: const SplashScreen(),
-              nextScreen: const AppLoginScreen()),
+              nextScreen: ref.watch(userActiveProvider)
+                  ? const PersonalInfoScreen()
+                  : const AppLoginScreen()),
         );
       }),
     );

@@ -1,5 +1,11 @@
+import 'package:expatswap_fluttertask/data/dependency_injection/injection_container.dart';
+import 'package:expatswap_fluttertask/data/global_var/global_variable.dart';
+import 'package:expatswap_fluttertask/view/presentation/home/personal_info_screen.dart';
+import 'package:expatswap_fluttertask/view_model/google_auth_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../data/utils/space_utils.dart';
 import '../../theme/app_color.dart';
@@ -41,8 +47,22 @@ class _AppLoginScreenState extends ConsumerState<AppLoginScreen> {
                 AppButton(
                   imageTitle: "assets/images/google.png",
                   color: red,
+                  isLoading: ref.watch(loadingProvider),
+                  function: () async {
+                    await authLocator<GoogleAuthViewModel>()
+                        .signInWithGoogle(ref);
+
+                    Get.to(() => const PersonalInfoScreen());
+                  },
+                ),
+                SpaceUtil.h(12),
+                AppButton(
+                  imageTitle: "assets/images/google.png",
+                  color: red,
                   isLoading: false,
-                  function: () {},
+                  function: () async {
+                    await GoogleSignIn().signOut();
+                  },
                 ),
               ],
             ),
