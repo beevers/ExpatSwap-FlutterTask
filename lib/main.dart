@@ -43,9 +43,10 @@ class MyApp extends ConsumerWidget {
           home: AnimatedSplashScreen(
               duration: 2000,
               splash: const SplashScreen(),
-              nextScreen: StorageHelper.getBool('activeUser') != null
-                  ? const PersonalInfoScreen()
-                  : const AppLoginScreen()),
+              nextScreen:
+                  //  StorageHelper.getBool('activeUser') != null
+                  //     ? const PersonalInfoScreen()
+                  const AppLoginScreen()),
         );
       }),
     );

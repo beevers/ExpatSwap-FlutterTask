@@ -49,8 +49,10 @@ class _AppLoginScreenState extends ConsumerState<AppLoginScreen> {
                   color: red,
                   isLoading: ref.watch(loadingProvider),
                   function: () async {
-                    await authLocator<GoogleAuthViewModel>()
+                    final response = await authLocator<GoogleAuthViewModel>()
                         .signInWithGoogle(ref);
+                    ref.read(usercrendentialProvider.notifier).state = response;
+                    print(response);
 
                     Get.to(() => const PersonalInfoScreen());
                   },

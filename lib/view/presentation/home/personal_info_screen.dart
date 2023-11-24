@@ -1,3 +1,4 @@
+import 'package:expatswap_fluttertask/data/global_var/global_variable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -22,6 +23,7 @@ class PersonalInfoScreen extends ConsumerStatefulWidget {
 class _PersonalInfoScreenState extends ConsumerState<PersonalInfoScreen> {
   @override
   Widget build(BuildContext context) {
+    final userDetails = ref.watch(usercrendentialProvider);
     return WillPopScope(
       onWillPop: () async {
         return Future.value(false);
@@ -31,15 +33,36 @@ class _PersonalInfoScreenState extends ConsumerState<PersonalInfoScreen> {
           leading: const SizedBox.shrink(),
           title: const Text("Personal Information"),
           centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: ClipOval(
+                  child: Image.network(
+                userDetails!.additionalUserInfo!.profile!['picture'],
+                height: 30,
+                width: 30,
+              )),
+            )
+          ],
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
+            padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
             child: Form(
               key: formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Signed in as: ",
+                        style: AppText.small(color: Colors.black),
+                      ),
+                      Text(userDetails.user!.email.toString())
+                    ],
+                  ),
                   Text(
                     "Please fill in the form accordingly here",
                     style: AppText.small(),
