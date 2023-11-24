@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1099100135991",
+    "project_id": "expatswap-862e7",
+    "storage_bucket": "expatswap-862e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1099100135991:android:d482bb02988826e67fd5b2",
+        "android_client_info": {
+          "package_name": "com.example.expatswap_fluttertask"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfHKBR8kqKZhvmmH9-LvlyuKgQDQHMPQA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

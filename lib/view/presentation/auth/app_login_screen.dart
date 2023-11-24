@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get.dart';
 
 import '../../../data/utils/space_utils.dart';
 import '../../theme/app_color.dart';
 import '../../theme/text_style.dart';
 import '../../widget/button_widget/app_button.dart';
-import '../home/personal_info_screen.dart';
 
 class AppLoginScreen extends ConsumerStatefulWidget {
   const AppLoginScreen({super.key});
@@ -44,9 +42,7 @@ class _AppLoginScreenState extends ConsumerState<AppLoginScreen> {
                   imageTitle: "assets/images/google.png",
                   color: red,
                   isLoading: false,
-                  function: () {
-                    Get.to(() => const PersonalInfoScreen());
-                  },
+                  function: () {},
                 ),
               ],
             ),

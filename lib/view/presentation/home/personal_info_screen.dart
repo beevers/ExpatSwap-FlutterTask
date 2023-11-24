@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import '../../../data/controllers/form_controller/text_form_cont.dart';
+import '../../../data/controllers/key/form_keys.dart';
 import '../../../data/dependency_injection/injection_container.dart';
 import '../../../data/helper/validation_helper.dart';
 import '../../../data/utils/space_utils.dart';
@@ -19,7 +20,6 @@ class PersonalInfoScreen extends ConsumerStatefulWidget {
 }
 
 class _PersonalInfoScreenState extends ConsumerState<PersonalInfoScreen> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -36,7 +36,7 @@ class _PersonalInfoScreenState extends ConsumerState<PersonalInfoScreen> {
           child: Padding(
             padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
             child: Form(
-              key: _formKey,
+              key: formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -47,8 +47,9 @@ class _PersonalInfoScreenState extends ConsumerState<PersonalInfoScreen> {
                   SpaceUtil.h(32),
                   AppFormField(
                     hintText: 'Full Name',
-                    validator: (value) =>
-                        ValidationHelper.isValidString(value.toString()),
+                    validator: (value) => ValidationHelper.isValidString(
+                        value.toString(),
+                        minLength: 3),
                     controller: nameController,
                   ),
                   SpaceUtil.h(16),
@@ -81,8 +82,9 @@ class _PersonalInfoScreenState extends ConsumerState<PersonalInfoScreen> {
                   SpaceUtil.h(16),
                   AppFormField(
                     hintText: 'House Address',
-                    validator: (value) =>
-                        ValidationHelper.isValidInput(value.toString()),
+                    validator: (value) => ValidationHelper.isValidInput(
+                        value.toString(),
+                        minLength: 3),
                     controller: addressController,
                   ),
                   SpaceUtil.h(16),
@@ -91,7 +93,7 @@ class _PersonalInfoScreenState extends ConsumerState<PersonalInfoScreen> {
                     title: "Login",
                     function: () async {
                       FocusScope.of(context).unfocus();
-                      if (_formKey.currentState!.validate()) {}
+                      if (formKey.currentState!.validate()) {}
                     },
                   ),
                   SpaceUtil.h(16),

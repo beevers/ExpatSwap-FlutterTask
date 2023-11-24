@@ -2,12 +2,19 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:expatswap_fluttertask/data/dependency_injection/injection_container.dart';
 import 'package:expatswap_fluttertask/view/presentation/auth/app_login_screen.dart';
 import 'package:expatswap_fluttertask/view/presentation/onboarding/splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   injectDependency();
   runApp(const ProviderScope(child: MyApp()));
 }
@@ -28,7 +35,7 @@ class MyApp extends ConsumerWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(useMaterial3: true),
           home: AnimatedSplashScreen(
-              duration: 3000,
+              duration: 2000,
               splash: const SplashScreen(),
               nextScreen: const AppLoginScreen()),
         );
