@@ -42,7 +42,6 @@ class _AppFormFieldState extends ConsumerState<AppFormField> {
     return TextFormField(
       readOnly: widget.readOnly != null ? true : false,
       onTap: widget.onTap,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
       cursorColor: Colors.black,
       validator: widget.validator,
       controller: widget.controller,

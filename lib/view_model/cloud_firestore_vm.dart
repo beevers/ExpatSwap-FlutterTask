@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expatswap_fluttertask/data/global_var/global_variable.dart';
+import 'package:expatswap_fluttertask/model/user_model/user_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CloudFirestoreViewModel {
@@ -24,25 +27,22 @@ class CloudFirestoreViewModel {
         .catchError((error) => print("Failed to add data: $error"));
   }
 
-  Future<dynamic> retrieveData(WidgetRef ref) async {
-    return users.get().then((QuerySnapshot querySnapshot) {
-      for (var doc in querySnapshot.docs) {
-        ref.read(numberOfDataProvider.notifier).state =
-            querySnapshot.docs.length;
-        ref.read(docIdProvider.notifier).state = doc.id;
-        return doc;
-      }
-    }).catchError((error) {
-      return null;
-    });
-  }
+  Stream<List<Map<String, dynamic>>> readUser() =>
+      users.snapshots().map((snapshot) => snapshot.docs.map((doc) {
+            final data = doc.data() as Map<String, dynamic>;
+            return {
+              'id': doc.id,
+              'data': UserModel.fromJson(data),
+            };
+          }).toList());
 
-  Future<void> deleteData(String docId) async {
+  Future<bool> deleteData(String docId) async {
     try {
       await users.doc(docId).delete();
-      print('Document successfully deleted');
+      return true;
     } catch (error) {
-      print('Error deleting document: $error');
+      debugPrint('Error deleting document: $error');
+      return false;
     }
   }
 }
