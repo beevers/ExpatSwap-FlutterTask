@@ -29,7 +29,7 @@ class CloudFirestoreViewModel {
       for (var doc in querySnapshot.docs) {
         ref.read(numberOfDataProvider.notifier).state =
             querySnapshot.docs.length;
-        print(querySnapshot.docs.length);
+        ref.read(docIdProvider.notifier).state = doc.id;
         return doc;
       }
     }).catchError((error) {
@@ -37,12 +37,9 @@ class CloudFirestoreViewModel {
     });
   }
 
-  Future<void> deleteData() async {
-    // Replace 'your_document_id' with the actual ID of the document you want to delete
-    String documentIdToDelete = 'your_document_id';
-
+  Future<void> deleteData(String docId) async {
     try {
-      await users.doc(documentIdToDelete).delete();
+      await users.doc(docId).delete();
       print('Document successfully deleted');
     } catch (error) {
       print('Error deleting document: $error');

@@ -29,35 +29,43 @@ class _ViewInformationScreenState extends ConsumerState<ViewInformationScreen> {
         appBar: AppBar(
           title: const Text("View Information "),
           centerTitle: true,
-          actions: const [
-            Padding(
-              padding: EdgeInsets.only(right: 10),
-              child: InkWell(child: Icon(Icons.delete_forever)),
-            )
-          ],
         ),
-        body: ListView.builder(
-            itemCount: ref.read(numberOfDataProvider),
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
-                child: Card(
-                  child: ListTile(
-                    title: Text("Name: ${savedData['name']}"),
-                    isThreeLine: true,
-                    subtitle: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Email: ${savedData['email']}"),
-                        Text("Phone: ${savedData['phone']}"),
-                        Text("DOB: ${savedData['dob']}"),
-                        Text("Address: ${savedData['address']}"),
-                      ],
+        body: savedData == null
+            ? const Center(
+                child: Text("No Information"),
+              )
+            : ListView.builder(
+                itemCount: ref.read(numberOfDataProvider),
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    child: Card(
+                      child: ListTile(
+                        trailing: InkWell(
+                            onTap: () async {
+                              await storageLocator<CloudFirestoreViewModel>()
+                                  .deleteData(savedData.id);
+                              ref.read(savedDataProvider.notifier).state =
+                                  await storageLocator<
+                                          CloudFirestoreViewModel>()
+                                      .retrieveData(ref);
+                            },
+                            child: const Icon(Icons.close)),
+                        title: Text("Name: ${savedData['name']}"),
+                        isThreeLine: true,
+                        subtitle: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Email: ${savedData['email']}"),
+                            Text("Phone: ${savedData['phone']}"),
+                            Text("DOB: ${savedData['dob']}"),
+                            Text("Address: ${savedData['address']}"),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              );
-            }));
+                  );
+                }));
   }
 }

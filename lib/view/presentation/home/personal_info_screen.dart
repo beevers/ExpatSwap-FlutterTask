@@ -23,6 +23,16 @@ class PersonalInfoScreen extends ConsumerStatefulWidget {
 
 class _PersonalInfoScreenState extends ConsumerState<PersonalInfoScreen> {
   @override
+  void initState() {
+    nameController = TextEditingController();
+    emailController = TextEditingController();
+    phoneController = TextEditingController();
+    dobController = TextEditingController();
+    addressController = TextEditingController();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final userDetails = ref.watch(usercrendentialProvider);
     return WillPopScope(
