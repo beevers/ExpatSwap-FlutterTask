@@ -90,7 +90,7 @@ class _PersonalInfoScreenState extends ConsumerState<PersonalInfoScreen> {
                   SpaceUtil.h(16),
                   AppButton(
                     isLoading: false,
-                    title: "Login",
+                    title: "Save Information",
                     function: () async {
                       FocusScope.of(context).unfocus();
                       if (formKey.currentState!.validate()) {}

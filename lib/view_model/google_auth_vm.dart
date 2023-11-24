@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../data/global_var/global_variable.dart';
-import '../model/google_auth_abstract.dart';
 
 class GoogleAuthViewModel extends ChangeNotifier {
   Future<UserCredential?> signInWithGoogle(WidgetRef ref) async {
