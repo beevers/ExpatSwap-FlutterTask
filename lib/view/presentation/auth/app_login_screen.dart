@@ -52,7 +52,6 @@ class _AppLoginScreenState extends ConsumerState<AppLoginScreen> {
                     final response = await authLocator<GoogleAuthViewModel>()
                         .signInWithGoogle(ref);
                     ref.read(usercrendentialProvider.notifier).state = response;
-                    print(response);
 
                     Get.to(() => const PersonalInfoScreen());
                   },

@@ -1,8 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:expatswap_fluttertask/data/dependency_injection/injection_container.dart';
-import 'package:expatswap_fluttertask/data/helper/storage_helper.dart';
 import 'package:expatswap_fluttertask/view/presentation/auth/app_login_screen.dart';
-import 'package:expatswap_fluttertask/view/presentation/home/personal_info_screen.dart';
 import 'package:expatswap_fluttertask/view/presentation/onboarding/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

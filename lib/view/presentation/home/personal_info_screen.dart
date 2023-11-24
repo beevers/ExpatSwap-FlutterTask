@@ -1,4 +1,5 @@
 import 'package:expatswap_fluttertask/data/global_var/global_variable.dart';
+import 'package:expatswap_fluttertask/view_model/cloud_firestore_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -116,7 +117,14 @@ class _PersonalInfoScreenState extends ConsumerState<PersonalInfoScreen> {
                     title: "Save Information",
                     function: () async {
                       FocusScope.of(context).unfocus();
-                      if (formKey.currentState!.validate()) {}
+                      if (formKey.currentState!.validate()) {
+                        storageLocator<CloudFirestoreViewModel>().saveData(
+                            name: nameController.text,
+                            email: emailController.text,
+                            phone: phoneController.text,
+                            dob: dobController.text,
+                            address: addressController.text);
+                      }
                     },
                   ),
                   SpaceUtil.h(16),
