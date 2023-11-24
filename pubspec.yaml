@@ -44,12 +44,16 @@ dependencies:
   #dependency for handling state management
   flutter_riverpod: ^2.4.8
   fluttertoast: ^8.2.4
+  #dependency for DI
   get_it: ^7.6.4
+  
+  #dependency for authentication
   firebase_core: ^2.23.0
   google_sign_in: ^6.1.6
   firebase_auth: ^4.14.1
-  shared_preferences: ^2.2.2
   cloud_firestore: ^4.13.2
+  #dependency for local storage
+  hive_flutter: ^1.1.0
 
 dev_dependencies:
   flutter_test:

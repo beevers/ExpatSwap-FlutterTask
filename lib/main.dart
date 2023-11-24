@@ -1,6 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:expatswap_fluttertask/data/dependency_injection/injection_container.dart';
-import 'package:expatswap_fluttertask/data/global_var/global_variable.dart';
+import 'package:expatswap_fluttertask/data/helper/storage_helper.dart';
 import 'package:expatswap_fluttertask/view/presentation/auth/app_login_screen.dart';
 import 'package:expatswap_fluttertask/view/presentation/home/personal_info_screen.dart';
 import 'package:expatswap_fluttertask/view/presentation/onboarding/splash_screen.dart';
@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'firebase_options.dart';
 
@@ -18,6 +19,9 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   injectDependency();
+
+  await Hive.initFlutter();
+  await Hive.openBox('app-local-storage');
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -39,7 +43,7 @@ class MyApp extends ConsumerWidget {
           home: AnimatedSplashScreen(
               duration: 2000,
               splash: const SplashScreen(),
-              nextScreen: ref.watch(userActiveProvider)
+              nextScreen: StorageHelper.getBool('activeUser') != null
                   ? const PersonalInfoScreen()
                   : const AppLoginScreen()),
         );

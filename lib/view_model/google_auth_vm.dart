@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../data/global_var/global_variable.dart';
+import '../data/helper/storage_helper.dart';
 
 class GoogleAuthViewModel extends ChangeNotifier {
   Future<UserCredential?> signInWithGoogle(WidgetRef ref) async {
@@ -12,8 +13,8 @@ class GoogleAuthViewModel extends ChangeNotifier {
       //Trigger authentication flow
       final GoogleSignInAccount? user = await GoogleSignIn().signIn();
       user == null
-          ? ref.read(userActiveProvider.notifier).state = false
-          : ref.read(userActiveProvider.notifier).state = true;
+          ? StorageHelper.setBool('activeUser', false)
+          : StorageHelper.setBool('activeUser', true);
 
       ref.read(loadingProvider.notifier).state = false;
       //Obtain auth details
