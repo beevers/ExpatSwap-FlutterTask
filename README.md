@@ -29,7 +29,7 @@ Setup your device then run the command - flutter run
 
 ## How To Setup Authentication And Connect To Database
 ### Setting up Authentication with Google
-Before setting up Google Authentication, ensure you have the necessary dependencies installed in your Flutter project.- -  -firebase_core: ^latest_version
+Before setting up Google Authentication, ensure you have the necessary dependencies installed in your Flutter project.- -  -firebase_core: ^latest_version \n
 -firebase_auth: ^latest_version
 -google_sign_in: ^latest_version
 ### Firebase Project Setup
