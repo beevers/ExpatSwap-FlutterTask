@@ -29,9 +29,9 @@ Setup your device then run the command - flutter run
 
 ## How To Setup Authentication And Connect To Database
 ### Setting up Authentication with Google
-Before setting up Google Authentication, ensure you have the necessary dependencies installed in your Flutter project.- -  -firebase_core: ^latest_version\
--firebase_auth: ^latest_version
--google_sign_in: ^latest_version
+Before setting up Google Authentication, ensure you have the necessary dependencies installed in your Flutter project.\ -firebase_core: ^latest_version\
+-firebase_auth: ^latest_version\
+-google_sign_in: ^latest_version\
 ### Firebase Project Setup
 Go to the Firebase Console and create a new project.
 Add your Android and iOS apps to the Firebase project and follow the setup instructions to download the configuration files (google-services.json for Android and GoogleService-Info.plist for iOS).
@@ -48,7 +48,7 @@ Ensure you have the cloud_firestore dependency in your pubspec.yaml:
 Initialize Firestore in your app, then create a collection instance, then we have successfully connected with firestore database.
 
 ## App Purpose
--Authenticate users to ensure that they are who they claim to be.
--Enhances security and prevents unauthorized access to sensitive information or features within your app.
--Users can sign in with their Google credentials, reducing the need for them to create and remember another set of login credentials.
+-Authenticate users to ensure that they are who they claim to be.\
+-Enhances security and prevents unauthorized access to sensitive information or features within your app.\
+-Users can sign in with their Google credentials, reducing the need for them to create and remember another set of login credentials.\
 -to assess my skills
