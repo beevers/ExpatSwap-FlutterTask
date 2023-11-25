@@ -153,15 +153,16 @@ class _PersonalInfoScreenState extends ConsumerState<PersonalInfoScreen> {
                                     dob: dobController.text,
                                     address: addressController.text);
 
-                        ref.read(isUpdateProvider.notifier).state = false;
                         nameController.clear();
                         emailController.clear();
                         phoneController.clear();
                         dobController.clear();
                         addressController.clear();
                         NotifyUtil.showAlert(ref.watch(isUpdateProvider) == true
-                            ? 'Information Updated'
+                            ? "Information Updated"
                             : "Information Added");
+
+                        ref.read(isUpdateProvider.notifier).state = false;
                       }
                     },
                   ),
