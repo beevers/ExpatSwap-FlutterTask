@@ -5,7 +5,6 @@ import 'package:expatswap_fluttertask/view_model/google_auth_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../data/utils/space_utils.dart';
 import '../../theme/app_color.dart';
@@ -57,14 +56,6 @@ class _AppLoginScreenState extends ConsumerState<AppLoginScreen> {
                   },
                 ),
                 SpaceUtil.h(12),
-                AppButton(
-                  imageTitle: "assets/images/google.png",
-                  color: red,
-                  isLoading: false,
-                  function: () async {
-                    await GoogleSignIn().signOut();
-                  },
-                ),
               ],
             ),
           ),

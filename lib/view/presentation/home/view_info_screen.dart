@@ -1,9 +1,13 @@
 import 'package:expatswap_fluttertask/data/dependency_injection/injection_container.dart';
+import 'package:expatswap_fluttertask/data/global_var/global_variable.dart';
 import 'package:expatswap_fluttertask/data/utils/notify_utils.dart';
+import 'package:expatswap_fluttertask/data/utils/space_utils.dart';
+import 'package:expatswap_fluttertask/model/user_model/user_model.dart';
 import 'package:expatswap_fluttertask/view/theme/app_color.dart';
 import 'package:expatswap_fluttertask/view_model/cloud_firestore_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 
 class ViewInformationScreen extends ConsumerStatefulWidget {
   const ViewInformationScreen({super.key});
@@ -36,18 +40,43 @@ class _ViewInformationScreenState extends ConsumerState<ViewInformationScreen> {
                           padding: const EdgeInsets.only(left: 10, right: 10),
                           child: Card(
                             child: ListTile(
-                              trailing: InkWell(
-                                  onTap: () async {
-                                    final response = await storageLocator<
-                                            CloudFirestoreViewModel>()
-                                        .deleteData(users[index]['id']);
-                                    response
-                                        ? NotifyUtil.showAlert(
-                                            "Deleted Successfully")
-                                        : NotifyUtil.showAlert(
-                                            "An error occurred");
-                                  },
-                                  child: const Icon(Icons.close)),
+                              trailing: Column(
+                                children: [
+                                  InkWell(
+                                      onTap: () async {
+                                        final response = await storageLocator<
+                                                CloudFirestoreViewModel>()
+                                            .deleteData(users[index]['id']);
+                                        response
+                                            ? NotifyUtil.showAlert(
+                                                "Deleted Successfully")
+                                            : NotifyUtil.showAlert(
+                                                "An error occurred");
+                                      },
+                                      child: const Icon(Icons.close)),
+                                  SpaceUtil.h(7),
+                                  InkWell(
+                                      onTap: () {
+                                        ref
+                                            .read(isUpdateProvider.notifier)
+                                            .state = true;
+                                        ref.read(docIdProvider.notifier).state =
+                                            users[index]['id'];
+                                        Get.back(
+                                            result: UserModel(
+                                                name: users[index]['data'].name,
+                                                email:
+                                                    users[index]['data'].email,
+                                                phone:
+                                                    users[index]['data'].phone,
+                                                dob: users[index]['data'].dob,
+                                                address: users[index]['data']
+                                                    .address));
+                                      },
+                                      child:
+                                          const Icon(Icons.change_circle_sharp))
+                                ],
+                              ),
                               title: Text("Name: ${users[index]['data'].name}"),
                               isThreeLine: true,
                               subtitle: Column(

@@ -1,5 +1,7 @@
 import 'package:expatswap_fluttertask/data/global_var/global_variable.dart';
 import 'package:expatswap_fluttertask/data/utils/notify_utils.dart';
+import 'package:expatswap_fluttertask/model/user_model/user_model.dart';
+import 'package:expatswap_fluttertask/view/theme/app_color.dart';
 import 'package:expatswap_fluttertask/view_model/cloud_firestore_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -50,7 +52,7 @@ class _PersonalInfoScreenState extends ConsumerState<PersonalInfoScreen> {
               padding: const EdgeInsets.only(right: 10),
               child: ClipOval(
                   child: Image.network(
-                userDetails!.additionalUserInfo!.profile!['picture'],
+                userDetails?.additionalUserInfo?.profile?['picture'],
                 height: 30,
                 width: 30,
               )),
@@ -72,7 +74,7 @@ class _PersonalInfoScreenState extends ConsumerState<PersonalInfoScreen> {
                         "Signed in as: ",
                         style: AppText.small(color: Colors.black),
                       ),
-                      Text(userDetails.user!.email.toString())
+                      Text(userDetails!.user!.email.toString())
                     ],
                   ),
                   Text(
@@ -124,24 +126,42 @@ class _PersonalInfoScreenState extends ConsumerState<PersonalInfoScreen> {
                   ),
                   SpaceUtil.h(16),
                   AppButton(
+                    color: ref.watch(isUpdateProvider) == true ? red : green,
                     isLoading: false,
-                    title: "Save Information",
+                    title: ref.watch(isUpdateProvider) == true
+                        ? 'Update Information'
+                        : "Save Information",
                     function: () async {
                       FocusScope.of(context).unfocus();
                       if (formKey.currentState!.validate()) {
-                        await storageLocator<CloudFirestoreViewModel>()
-                            .saveData(
-                                name: nameController.text,
-                                email: emailController.text,
-                                phone: phoneController.text,
-                                dob: dobController.text,
-                                address: addressController.text);
+                        final docId = ref.watch(docIdProvider);
+                        ref.watch(isUpdateProvider) == true
+                            ? await storageLocator<CloudFirestoreViewModel>()
+                                .updateData(
+                                    docId: docId,
+                                    user: UserModel(
+                                        name: nameController.text,
+                                        email: emailController.text,
+                                        phone: phoneController.text,
+                                        dob: dobController.text,
+                                        address: addressController.text))
+                            : await storageLocator<CloudFirestoreViewModel>()
+                                .saveData(
+                                    name: nameController.text,
+                                    email: emailController.text,
+                                    phone: phoneController.text,
+                                    dob: dobController.text,
+                                    address: addressController.text);
+
+                        ref.read(isUpdateProvider.notifier).state = false;
                         nameController.clear();
                         emailController.clear();
                         phoneController.clear();
                         dobController.clear();
                         addressController.clear();
-                        NotifyUtil.showAlert("Information Added");
+                        NotifyUtil.showAlert(ref.watch(isUpdateProvider) == true
+                            ? 'Information Updated'
+                            : "Information Added");
                       }
                     },
                   ),
@@ -150,7 +170,13 @@ class _PersonalInfoScreenState extends ConsumerState<PersonalInfoScreen> {
                     isLoading: false,
                     title: "View Information",
                     function: () async {
-                      Get.to(() => const ViewInformationScreen());
+                      UserModel result =
+                          await Get.to(() => const ViewInformationScreen());
+                      nameController.text = result.name!;
+                      emailController.text = result.email!;
+                      phoneController.text = result.phone!;
+                      dobController.text = result.dob!;
+                      addressController.text = result.address!;
                     },
                   ),
                 ],
