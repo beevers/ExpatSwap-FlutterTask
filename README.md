@@ -1,16 +1,27 @@
 # expatswap_fluttertask
 
-A new Flutter project.
+A new Flutter task project from ExpatSwap.
 
 ## Getting Started
 
 This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Description
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Flutter mobile app that allows users to input and submit personal information through a form. This app support authentication using Google, and the submitted data is stored in firestore database.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## Table of Contents
+
+- [Running the App Locally](#running-the-app-locally)
+- [How To Setup Authentication And Connect To Database](#how-to-setup-authentication-and-connect-to-database)
+- [App Purpose](#app-purpose)
+
+## Installation
+### Firstly clone my project running the command below in your terminal then open in vscode
+git clone https://github.com/beevers/ExpatSwap-FlutterTask.git
+code .
+### Install Dependencies by running the command below in your terminal 
+flutter pub get
+### App is ready to run on emulator or physical devices
+Setup your device then run the command - flutter run
