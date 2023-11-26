@@ -137,7 +137,7 @@ class _PersonalInfoScreenState extends ConsumerState<PersonalInfoScreen> {
                         final docId = ref.watch(docIdProvider);
                         ref.watch(isUpdateProvider) == true
                             ? await storageLocator<CloudFirestoreViewModel>()
-                                .updateData(
+                                .updateData(ref,
                                     docId: docId,
                                     user: UserModel(
                                         name: nameController.text,
@@ -146,7 +146,7 @@ class _PersonalInfoScreenState extends ConsumerState<PersonalInfoScreen> {
                                         dob: dobController.text,
                                         address: addressController.text))
                             : await storageLocator<CloudFirestoreViewModel>()
-                                .saveData(
+                                .saveData(ref,
                                     name: nameController.text,
                                     email: emailController.text,
                                     phone: phoneController.text,

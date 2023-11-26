@@ -25,7 +25,7 @@ class _ViewInformationScreenState extends ConsumerState<ViewInformationScreen> {
           centerTitle: true,
         ),
         body: StreamBuilder<List<Map<String, dynamic>>>(
-          stream: storageLocator<CloudFirestoreViewModel>().readUser(),
+          stream: storageLocator<CloudFirestoreViewModel>().readUser(ref),
           builder: (context, snapshot) {
             final users = snapshot.data?.reversed.toList();
             if (snapshot.hasData) {
@@ -46,7 +46,8 @@ class _ViewInformationScreenState extends ConsumerState<ViewInformationScreen> {
                                       onTap: () async {
                                         final response = await storageLocator<
                                                 CloudFirestoreViewModel>()
-                                            .deleteData(users[index]['id']);
+                                            .deleteData(
+                                                ref, users[index]['id']);
                                         response
                                             ? NotifyUtil.showAlert(
                                                 "Deleted Successfully")

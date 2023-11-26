@@ -53,6 +53,7 @@ class _AppLoginScreenState extends ConsumerState<AppLoginScreen> {
                     if (response['error'] == false) {
                       ref.read(usercrendentialProvider.notifier).state =
                           response['data'];
+                      print(response['data']);
                       Get.to(() => const PersonalInfoScreen());
                     }
                   },
