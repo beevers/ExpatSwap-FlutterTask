@@ -20,6 +20,7 @@ Flutter mobile app that allows users to input and submit personal information th
 ## Installation
 ### Firstly clone my project running the command below in your terminal then open in vscode
 git clone https://github.com/beevers/ExpatSwap-FlutterTask.git
+cd ExpatSwap-FlutterTask
 ### run command below in terminal
 code .
 ### Install Dependencies by running the command below in your terminal 
